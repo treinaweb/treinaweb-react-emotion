@@ -1,41 +1,30 @@
 import styled from '@emotion/styled/macro';
-import { keyframes } from '@emotion/react';
+import { ThemeProvider } from '@emotion/react';
 import { useState } from 'react';
 
-const sumir = keyframes`
-  0%{
-    opacity: 1;
-  }
+const tema = {
+    corDaFonte: 'red',
+    corDeFundo: 'green',
+};
 
-  100%{
-    opacity: 0;
-  }
-`;
-
-const MeuSpan = styled('span')``;
+const tema2 = {
+    corDaFonte: 'blue',
+    corDeFundo: 'gray',
+};
 
 const MinhaDiv = styled('div')`
-    background-color: green;
-    color: ${({ ligado }) => (ligado ? 'white' : 'red')};
-
-    &:hover ${MeuSpan} {
-        color: red;
-        animation: ${sumir} 1s ease alternate-reverse infinite;
-        @media (max-width: 200px) {
-            color: blue;
-        }
-    }
+    background-color: ${({ theme }) => theme.corDeFundo};
+    color: ${({ theme }) => theme.corDaFonte};
 `;
 
 function App() {
     const [ligado, setLigado] = useState(true);
     return (
-        <div onClick={() => setLigado(!ligado)}>
-            <MinhaDiv ligado={ligado}>
-                TreinaWeb
-                <MeuSpan>Teste</MeuSpan>
-            </MinhaDiv>
-        </div>
+        <ThemeProvider theme={ligado ? tema : tema2}>
+            <div onClick={() => setLigado(!ligado)}>
+                <MinhaDiv>TreinaWeb</MinhaDiv>
+            </div>
+        </ThemeProvider>
     );
 }
 
