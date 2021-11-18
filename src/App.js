@@ -1,20 +1,16 @@
 import styled from '@emotion/styled';
+import { useState } from 'react';
 
 const MinhaDiv = styled('div')`
     background-color: green;
-    color: white;
-`;
-
-const MinhaOutraDiv = styled(MinhaDiv)`
-    font-weight: bold;
-    color: red;
+    color: ${({ ligado }) => (ligado ? 'white' : 'red')};
 `;
 
 function App() {
+    const [ligado, setLigado] = useState(true);
     return (
-        <div>
-            <MinhaDiv>TreinaWeb</MinhaDiv>
-            <MinhaOutraDiv>TreinaWeb 222</MinhaOutraDiv>
+        <div onClick={() => setLigado(!ligado)}>
+            <MinhaDiv ligado={ligado}>TreinaWeb</MinhaDiv>
         </div>
     );
 }
